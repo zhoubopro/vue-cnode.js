@@ -32,6 +32,10 @@ export default new Router({
       components: {
         main: User
       },
+    },
+    {
+      path: '/user/:name',
+      redirect: '/user:name',
     }
   ],
 });
