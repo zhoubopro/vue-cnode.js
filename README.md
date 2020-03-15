@@ -1,4 +1,4 @@
-# hello-world
+# vue-cnode.js
 
 ## Project setup
 ```
