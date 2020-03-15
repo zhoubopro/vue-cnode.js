@@ -21,7 +21,24 @@ function getTopic (path) {
   });
 }
 
+function getPath (path) {
+  return http.request({
+    url: '/v1' + path,
+    method: 'GET',
+  });
+}
+
+function getGitUser (params) {
+  return http.request({
+    url: '/v1/user/' + params,
+    method: 'GET',
+  });
+}
+
+
 export default {
   getTopics,
-  getTopic
+  getTopic,
+  getPath,
+  getGitUser
 }

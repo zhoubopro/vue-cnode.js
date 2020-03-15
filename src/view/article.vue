@@ -3,19 +3,16 @@
     <ui-header>
       header
     </ui-header>
-    <ui-layout>
-      <ui-content>
-        <h3>{{article.title}}</h3>
-        <span>发布于：{{createdTime}}</span>
-        <span>作者：{{article.author.loginname}}</span>
-        <span>浏览量：{{article.visit_count}}</span>
-        <span>来自：{{article.tab}}</span>
-        <div v-html='article.content'></div>
-      </ui-content>
-      <ui-sider>
-        sider
-      </ui-sider>
-    </ui-layout>
+    <ui-content>
+      <h3>{{article.title}}</h3>
+      <span>发布于：{{createdTime}}</span>
+      <router-link :to='{name:"User", params:{id: article.author.loginname}}'>
+        作者：{{article.author.loginname}}
+      </router-link>
+      <span>浏览量：{{article.visit_count}}</span>
+      <span>来自：{{article.tab}}</span>
+      <div v-html='article.content'></div>
+    </ui-content>
   </ui-layout>
 </template>
 
@@ -46,7 +43,6 @@
     },
     methods: {
       getTopicApi () {
-        // const params = { page: 1, limit: 10, mdrender: 'false' };
         const path = this.$route.path;
         this.$api.getTopic(path).then(result => {
           const data = result.data.data;
