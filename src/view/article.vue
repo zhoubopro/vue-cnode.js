@@ -1,54 +1,58 @@
 <template>
   <div class="article-wrapper">
-    <div class="panel">
-      <div class="header topic_header">
-        <div class="topic_full_title">
-          <p class="put_top">置顶</p>
-          {{article.title}}
-        </div>
-        <div class="user-info">
-          <span>发布时间：{{createdTime}}</span>
-          <span>
+    <template v-if="Object.keys(article).length > 0">
+      <div class="panel">
+        <div class="header topic_header">
+          <div class="topic_full_title">
+            <p class="put_top">置顶</p>
+            {{article.title}}
+          </div>
+          <div class="user-info">
+            <span>发布时间：{{createdTime}}</span>
+            <span>
             作者：
             <router-link :to='{name:"User", params:{name: article.author.loginname}}'>
             {{article.author.loginname}}
           </router-link>
           </span>
-          <span>浏览量：{{article.visit_count}}</span>
-          <span>来自：{{article.tab}}</span>
+            <span>浏览量：{{article.visit_count}}</span>
+            <span>来自：{{article.tab}}</span>
+          </div>
+        </div>
+        <div class="inner topic">
+          <div class="topic_content" v-html='article.content'></div>
         </div>
       </div>
-      <div class="inner topic">
-        <div class="topic_content" v-html='article.content'></div>
-      </div>
-    </div>
-    <div class='panel reply'>
-      <div class="reply-header">
-        <p class="col_fade">评论</p>
-        <p class="col_fade"><span style="color:#08c;">{{article.reply_count}}</span>层楼</p>
-      </div>
-      <template v-for='(reply, index) in article.replies'>
-        <div class='reply-item' :key="index">
-          <div class="author-content">
-            <router-link class="user-avatar" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
-              <img :src='reply.author.avatar_url' :title="reply.author.loginname">
-            </router-link>
-            <div class="reply-user-info">
-              <router-link class="dark reply_author" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
-                {{reply.author.loginname}}
+      <div class='panel reply'>
+        <div class="reply-header">
+          <p class="col_fade">评论</p>
+          <p class="col_fade"><span style="color:#08c;">{{article.reply_count}}</span>层楼</p>
+        </div>
+        <template v-for='(reply, index) in article.replies'>
+          <div class='reply-item' :key="index">
+            <div class="author-content">
+              <router-link class="user-avatar" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
+                <img :src='reply.author.avatar_url' :title="reply.author.loginname">
               </router-link>
-              <span class="reply-time">{{index + 1}}楼•{{replyTime(reply.create_at)}}</span>
-              <span class="reply-by-author" v-if="article.author.loginname === reply.author.loginname">作者</span>
+              <div class="reply-user-info">
+                <router-link class="dark reply_author" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
+                  {{reply.author.loginname}}
+                </router-link>
+<!--
+                <span class="reply-time">{{index + 1}}楼•{{replyTime(reply.create_at)}}</span>
+-->
+                <span class="reply-by-author" v-if="article.author.loginname === reply.author.loginname">作者</span>
+              </div>
+            </div>
+            <div
+              class="reply-content"
+              :class="article.author.loginname"
+              v-html='reply.content'>
             </div>
           </div>
-          <div
-            class="reply-content"
-            :class="article.author.loginname"
-            v-html='reply.content'>
-          </div>
-        </div>
-      </template>
-    </div>
+        </template>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -64,7 +68,7 @@
       createdTime () {
         return String(this.article.create_at).match(/.{10}/)[0];
       },
-      replyTime(){
+      replyTime () {
         return function (time) {
           return String(time).match(/.{10}/)[0];
         }
@@ -178,35 +182,35 @@
         background: #ffffff;
         padding: .5rem;
         border-top: 1px solid #f0f0f0;
-        .author-content{
+        .author-content {
           display: flex;
-          .user-avatar{
+          .user-avatar {
             color: #08c;
             text-decoration: none;
-            img{
+            img {
               width: 2rem;
               height: 2rem;
               border-radius: 3px;
             }
           }
-          .reply-user-info{
+          .reply-user-info {
             margin-left: .5rem;
             font-size: 14px;
-            a.dark{
+            a.dark {
               color: #666;
               text-decoration: none;
             }
-            .reply-time{
+            .reply-time {
               color: #08c;
               font-size: 11px;
             }
-            .reply-by-author{
+            .reply-by-author {
               color: #fff;
               background-color: #6ba44e;
               padding: 2px 5px;
               font-size: 12px;
               border-radius: 3px;
-              margin-left:3px;
+              margin-left: 3px;
             }
           }
         }
