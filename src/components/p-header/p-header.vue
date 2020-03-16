@@ -4,6 +4,7 @@
       <div class="header-container">
         <div class="header-left">
           <router-link to="/" class="logo">
+            <!--<icon name='cnodejs' scale='35'></icon>-->
             <img src="../../assets/cnodejs.svg" alt="logo">
           </router-link>
           <ui-input type="text" />
