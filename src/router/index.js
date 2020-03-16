@@ -4,6 +4,7 @@ import Portal from '../view/portal';
 import Article from '../view/article';
 import Sider from '../view/sider';
 import User from '../view/user';
+import About from '../view/about';
 
 Vue.use(Router);
 
@@ -36,6 +37,12 @@ export default new Router({
     {
       path: '/user/:name',
       redirect: '/user:name',
+    },
+    {
+      path: '/about',
+      components: {
+        main: About
+      }
     }
   ],
 });
