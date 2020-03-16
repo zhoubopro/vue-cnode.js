@@ -1,24 +1,14 @@
 <template>
-  <ui-layout>
-    <ui-header>
-      header
-    </ui-header>
-    <ui-layout>
-      <ui-content class='portal-wrapper'>
-        <div v-for='item of content'>
-          <img :src='item.author.avatar_url' :title='item.loginname'>
-          <span>{{item.reply_count}}</span>
-          <span>{{item.create_at}}</span>
-          <router-link :to='{name:"Article", params:{id:item.id}}'>
-            {{item.title}}
-          </router-link>
-        </div>
-      </ui-content>
-      <ui-sider>
-        sider
-      </ui-sider>
-    </ui-layout>
-  </ui-layout>
+  <div class='portal-wrapper'>
+    <div v-for='item of content'>
+      <img :src='item.author.avatar_url' :title='item.loginname'>
+      <span>{{item.reply_count}}</span>
+      <span>{{item.create_at}}</span>
+      <router-link :to='{name:"Article", params:{id:item.id}}'>
+        {{item.title}}
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script>

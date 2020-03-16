@@ -1,13 +1,18 @@
 <template>
   <div id="app">
+    <p-header />
     <router-view name='main'></router-view>
     <router-view name='sider'></router-view>
   </div>
 </template>
 
 <script>
+  import PHeader from './components/p-header/p-header'
   export default {
     name: 'app',
+    components:{
+      PHeader
+    }
   }
 </script>
 
@@ -21,8 +26,10 @@
   #app {
     color: #333333;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     background: #e1e1e1;
+
   }
   img {
     max-width: 100%;
