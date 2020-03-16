@@ -4,10 +4,13 @@ import api from './api';
 import router from './router';
 import uiFramed from 'ui-framed';
 import 'ui-framed/dist/ui-framed.css';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import Icon from 'vue-svg-icon/Icon.vue';
 
 Vue.config.productionTip = false;
 Vue.prototype.$api = api;
+Vue.use(ElementUI);
 Vue.use(uiFramed);
 
 Vue.component('icon', Icon);

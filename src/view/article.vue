@@ -1,5 +1,5 @@
 <template>
-  <div class="article-wrapper">
+  <div class="article-wrapper" v-loading.lock='loading' element-loading-background="rgba(255, 255, 255, 0.8k)">
     <template v-if="Object.keys(article).length > 0">
       <div class="panel">
         <div class="header topic_header">
@@ -38,9 +38,9 @@
                 <router-link class="dark reply_author" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
                   {{reply.author.loginname}}
                 </router-link>
-<!--
-                <span class="reply-time">{{index + 1}}楼•{{replyTime(reply.create_at)}}</span>
--->
+                <!--
+                                <span class="reply-time">{{index + 1}}楼•{{replyTime(reply.create_at)}}</span>
+                -->
                 <span class="reply-by-author" v-if="article.author.loginname === reply.author.loginname">作者</span>
               </div>
             </div>
@@ -62,6 +62,7 @@
     data () {
       return {
         article: {},
+        loading: true,
       };
     },
     computed: {
@@ -84,6 +85,7 @@
           const data = result.data.data;
           if (result.status === 200) {
             this.article = data;
+            this.loading = false;
           }
         }).catch(e => {
           console.log('portal.vue: ', e.data.data);
@@ -97,6 +99,7 @@
   .article-wrapper {
     width: 65%;
     margin: 20px 0 0 70px;
+    min-height: 100vh;
     .panel {
       margin-bottom: 13px;
       .header {
