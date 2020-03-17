@@ -16,6 +16,7 @@ export default new Router({
       // component: Portal,
       components: {
         main: Portal,
+        sider: Sider
       },
     },
     {

@@ -1,5 +1,5 @@
 <template>
-  <div class='secDiv'>
+  <div class='sider-wrapper'>
     <div>
       <img :src='userInfo.avatar_url'>
       <span>{{userInfo.loginname}}</span>
@@ -36,7 +36,7 @@
 </script>
 
 <style scoped>
-  .secDiv {
+  .sider-wrapper {
     width: 20%;
     height: 30rem;
     background: #fff;

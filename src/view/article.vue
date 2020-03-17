@@ -97,8 +97,7 @@
 
 <style lang="scss">
   .article-wrapper {
-    width: 65%;
-    margin: 20px 0 0 70px;
+    width: 78%;
     min-height: 100vh;
     .panel {
       margin-bottom: 13px;

@@ -69,6 +69,7 @@
             display: block;
             width: 160px;
             padding: 3px 20px;
+            margin-left: -20px;
             height: 40px;
             line-height: 40px;
             color: #ccc;
