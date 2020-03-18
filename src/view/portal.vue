@@ -1,5 +1,5 @@
 <template>
-  <div class='portal-wrapper' v-loading.lock='loading'>
+  <div class='portal-wrapper' >
     <div class="portal-content">
       <div class="header">
         <ui-nav :selected.sync="selected" class="header-nav" @update:selected="onSelected">
@@ -11,7 +11,7 @@
           <ui-nav-item name="dev">测试</ui-nav-item>
         </ui-nav>
       </div>
-      <div class="content">
+      <div class="content" v-loading='loading'>
         <template v-for='(item, index) in dataList'>
           <div class="item" :key="index">
             <div class="item-left">
@@ -20,9 +20,14 @@
                 <span class="reply-count">{{item.reply_count}}</span>/<span
                 class="visit-count">{{item.visit_count}}</span>
               </p>
-              <p class="top" v-if="item.top === true && (selected === 'all' || selected === 'good' || selected === 'share')">置顶</p>
-              <p class="tab" v-else-if="item.tab==='share' && (selected === 'all' || selected === 'good' || selected === 'share')">分享</p>
-              <p class="tab" v-else-if="item.tab==='ask' && (selected === 'all' || selected === 'good' || selected === 'share')">问答</p>
+              <p class="top"
+                 v-if="item.top === true && (selected === 'all' || selected === 'good' || selected === 'share')">置顶</p>
+              <p class="tab"
+                 v-else-if="item.tab==='share' && (selected === 'all' || selected === 'good' || selected === 'share')">
+                分享</p>
+              <p class="tab"
+                 v-else-if="item.tab==='ask' && (selected === 'all' || selected === 'good' || selected === 'share')">
+                问答</p>
               <router-link class="title" :to='{name:"Article", params:{id:item.id}}'>
                 {{item.title}}
               </router-link>
@@ -40,6 +45,7 @@
 
 <script>
   import PSider from '../components/p-sider/p-sider';
+
   export default {
     name: "portal",
     data () {
@@ -51,7 +57,7 @@
         loading: true
       };
     },
-    components:{
+    components: {
       PSider
     },
     computed: {
@@ -68,6 +74,7 @@
     },
     methods: {
       getTopicsApi (params) {
+        this.loading = true;
         this.$api.getTopics(params).then(result => {
           this.dataList = result.data.data;
           this.limit += 10;
@@ -99,7 +106,7 @@
     min-height: 100vh;
     width: 100%;
     justify-content: space-between;
-    .portal-content{
+    .portal-content {
       flex: .98;
     }
     .header-nav {
@@ -117,6 +124,7 @@
       }
     }
     .content {
+      min-height: 100vh;
       .item {
         display: flex;
         align-items: center;

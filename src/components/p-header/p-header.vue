@@ -7,7 +7,7 @@
             <!--<icon name='cnodejs' scale='35'></icon>-->
             <img src="../../assets/cnodejs.svg" alt="logo">
           </router-link>
-          <ui-input type="text" />
+          <!--<ui-input type="text" />-->
         </div>
         <div class="header-right">
           <ul class="nav">
@@ -23,12 +23,12 @@
             <li>
               <router-link to="/about">关于</router-link>
             </li>
-            <li>
-              <router-link to="/register">注册</router-link>
-            </li>
-            <li>
-              <router-link to="/login">登陆</router-link>
-            </li>
+            <!--<li>-->
+              <!--<router-link to="/register">注册</router-link>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<router-link to="/login">登陆</router-link>-->
+            <!--</li>-->
           </ul>
         </div>
       </div>
