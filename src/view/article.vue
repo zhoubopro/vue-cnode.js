@@ -55,7 +55,9 @@
         </div>
       </template>
     </div>
-    <PSider :author="article.author.loginname"/>
+    <template v-if="Object.keys(article).length > 0">
+      <PSider :author="article.author.loginname"/>
+    </template>
   </div>
 </template>
 
