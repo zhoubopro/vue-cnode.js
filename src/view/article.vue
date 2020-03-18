@@ -9,7 +9,9 @@
               {{article.title}}
             </div>
             <div class="user-info">
-              <span>发布时间：{{createdTime}}</span>
+              <span>
+                发布于{{$moment(article.create_at, 'YYYY-MM-DD').startOf('day').fromNow()}}
+              </span>
               <span>
             作者：
             <router-link :to='{name:"User", params:{name: article.author.loginname}}'>
@@ -36,12 +38,11 @@
                   <img :src='reply.author.avatar_url' :title="reply.author.loginname">
                 </router-link>
                 <div class="reply-user-info">
-                  <router-link class="dark reply_author" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
+                  <router-link class="dark reply_author"
+                               :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
                     {{reply.author.loginname}}
                   </router-link>
-                  <!--
-                                  <span class="reply-time">{{index + 1}}楼•{{replyTime(reply.create_at)}}</span>
-                  -->
+                    <span class="reply-time">{{index + 1}}楼•{{$moment(reply.create_at, 'YYYY-MM-DD').startOf('day').fromNow()}}</span>
                   <span class="reply-by-author" v-if="article.author.loginname === reply.author.loginname">作者</span>
                 </div>
               </div>
@@ -56,13 +57,14 @@
       </template>
     </div>
     <template v-if="Object.keys(article).length > 0">
-      <PSider :author="article.author.loginname"/>
+      <PSider :author="article.author.loginname" />
     </template>
   </div>
 </template>
 
 <script>
   import PSider from '../components/p-sider/p-sider';
+
   export default {
     name: "view-article",
     data () {
@@ -71,7 +73,7 @@
         loading: true,
       };
     },
-    components:{
+    components: {
       PSider
     },
     computed: {
@@ -110,7 +112,7 @@
     justify-content: space-between;
     width: 100%;
     min-height: 100vh;
-    .article-content{
+    .article-content {
       flex: .98;
     }
     .panel {

@@ -7,7 +7,7 @@
         <router-link to="/">登录</router-link>
       </p>
     </div>
-    <div class="author"  v-else>
+    <div class="author" v-else>
       <div class="header">
         作者
       </div>
@@ -18,6 +18,18 @@
         </router-link>
         <div>
           <p>积分：{{userInfo.score}}</p>
+          <p>
+            注册时间：
+            {{$moment(userInfo.create_at, 'YYYY-MM-DD')
+            .startOf('day')
+            .fromNow()}}
+          </p>
+          <p>
+            Github：
+            <router-link :to='"https://github.com/" + userInfo.githubUsername' target="_blank" rel="nofollow noopener noreferrer">
+              {{userInfo.githubUsername}}
+            </router-link>
+          </p>
         </div>
       </div>
     </div>
@@ -46,7 +58,7 @@
         val: '',
       };
     },
-    props:{
+    props: {
       author: {
         type: String,
         default: ''
@@ -58,7 +70,7 @@
     methods: {
       getGitUserApi () {
         const params = this.author;
-        if(params !== ''){
+        if (params !== '') {
           this.$api.getGitUser(params).then(result => {
             const data = result.data.data;
             this.userInfo = data;
@@ -69,7 +81,7 @@
       }
     },
     watch: {
-      route(o, n){
+      route (o, n) {
         console.log(o, n);
       }
     }
@@ -90,26 +102,26 @@
         color: #08c;
       }
     }
-    .author{
-      .content{
+    .author {
+      .content {
         background: white;
         padding: 10px;
         border-radius: 0 0 3px 3px;
-        a{
+        a {
           text-decoration: none;
           display: inline-flex;
           align-items: center;
         }
-        img{
+        img {
           width: 50px;
           height: 50px;
           border-radius: 3px;
           margin-right: 5px;
         }
-        span{
+        span {
           color: darkgray;
         }
-        p{
+        p {
           font-size: 12px;
         }
       }
