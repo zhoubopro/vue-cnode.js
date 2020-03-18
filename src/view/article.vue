@@ -1,62 +1,66 @@
 <template>
   <div class="article-wrapper" v-loading.lock='loading' element-loading-background="rgba(255, 255, 255, 0.8k)">
-    <template v-if="Object.keys(article).length > 0">
-      <div class="panel">
-        <div class="header topic_header">
-          <div class="topic_full_title">
-            <p class="put_top">置顶</p>
-            {{article.title}}
-          </div>
-          <div class="user-info">
-            <span>发布时间：{{createdTime}}</span>
-            <span>
+    <div class="article-content">
+      <template v-if="Object.keys(article).length > 0">
+        <div class="panel">
+          <div class="header topic_header">
+            <div class="topic_full_title">
+              <p class="put_top">置顶</p>
+              {{article.title}}
+            </div>
+            <div class="user-info">
+              <span>发布时间：{{createdTime}}</span>
+              <span>
             作者：
             <router-link :to='{name:"User", params:{name: article.author.loginname}}'>
             {{article.author.loginname}}
           </router-link>
           </span>
-            <span>浏览量：{{article.visit_count}}</span>
-            <span>来自：{{article.tab}}</span>
+              <span>浏览量：{{article.visit_count}}</span>
+              <span>来自：{{article.tab}}</span>
+            </div>
+          </div>
+          <div class="inner topic">
+            <div class="topic_content" v-html='article.content'></div>
           </div>
         </div>
-        <div class="inner topic">
-          <div class="topic_content" v-html='article.content'></div>
-        </div>
-      </div>
-      <div class='panel reply'>
-        <div class="reply-header">
-          <p class="col_fade">评论</p>
-          <p class="col_fade"><span style="color:#08c;">{{article.reply_count}}</span>层楼</p>
-        </div>
-        <template v-for='(reply, index) in article.replies'>
-          <div class='reply-item' :key="index">
-            <div class="author-content">
-              <router-link class="user-avatar" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
-                <img :src='reply.author.avatar_url' :title="reply.author.loginname">
-              </router-link>
-              <div class="reply-user-info">
-                <router-link class="dark reply_author" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
-                  {{reply.author.loginname}}
+        <div class='panel reply'>
+          <div class="reply-header">
+            <p class="col_fade">评论</p>
+            <p class="col_fade"><span style="color:#08c;">{{article.reply_count}}</span>层楼</p>
+          </div>
+          <template v-for='(reply, index) in article.replies'>
+            <div class='reply-item' :key="index">
+              <div class="author-content">
+                <router-link class="user-avatar" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
+                  <img :src='reply.author.avatar_url' :title="reply.author.loginname">
                 </router-link>
-                <!--
-                                <span class="reply-time">{{index + 1}}楼•{{replyTime(reply.create_at)}}</span>
-                -->
-                <span class="reply-by-author" v-if="article.author.loginname === reply.author.loginname">作者</span>
+                <div class="reply-user-info">
+                  <router-link class="dark reply_author" :to='{name: "UserRoute",params:{name: reply.author.loginname}}'>
+                    {{reply.author.loginname}}
+                  </router-link>
+                  <!--
+                                  <span class="reply-time">{{index + 1}}楼•{{replyTime(reply.create_at)}}</span>
+                  -->
+                  <span class="reply-by-author" v-if="article.author.loginname === reply.author.loginname">作者</span>
+                </div>
+              </div>
+              <div
+                class="reply-content"
+                :class="article.author.loginname"
+                v-html='reply.content'>
               </div>
             </div>
-            <div
-              class="reply-content"
-              :class="article.author.loginname"
-              v-html='reply.content'>
-            </div>
-          </div>
-        </template>
-      </div>
-    </template>
+          </template>
+        </div>
+      </template>
+    </div>
+    <PSider :author="article.author.loginname"/>
   </div>
 </template>
 
 <script>
+  import PSider from '../components/p-sider/p-sider';
   export default {
     name: "view-article",
     data () {
@@ -64,6 +68,9 @@
         article: {},
         loading: true,
       };
+    },
+    components:{
+      PSider
     },
     computed: {
       createdTime () {
@@ -97,8 +104,13 @@
 
 <style lang="scss">
   .article-wrapper {
-    width: 78%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     min-height: 100vh;
+    .article-content{
+      flex: .98;
+    }
     .panel {
       margin-bottom: 13px;
       .header {

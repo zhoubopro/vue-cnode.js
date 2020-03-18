@@ -1,41 +1,45 @@
 <template>
   <div class='portal-wrapper' v-loading.lock='loading'>
-    <div class="header">
-      <ui-nav :selected.sync="selected" class="header-nav" @update:selected="onSelected">
-        <ui-nav-item name="all">全部</ui-nav-item>
-        <ui-nav-item name="good">精华</ui-nav-item>
-        <ui-nav-item name="share">分享</ui-nav-item>
-        <ui-nav-item name="ask">问答</ui-nav-item>
-        <ui-nav-item name="job">招聘</ui-nav-item>
-        <ui-nav-item name="dev">测试</ui-nav-item>
-      </ui-nav>
-    </div>
-    <div class="content">
-      <template v-for='(item, index) in dataList'>
-        <div class="item" :key="index">
-          <div class="item-left">
-            <img class="avatar" :src='item.author.avatar_url' :title='item.loginname'>
-            <p class="count">
-              <span class="reply-count">{{item.reply_count}}</span>/<span
-              class="visit-count">{{item.visit_count}}</span>
-            </p>
-            <p class="top" v-if="item.top === true && (selected === 'all' || selected === 'good' || selected === 'share')">置顶</p>
-            <p class="tab" v-else-if="item.tab==='share' && (selected === 'all' || selected === 'good' || selected === 'share')">分享</p>
-            <p class="tab" v-else-if="item.tab==='ask' && (selected === 'all' || selected === 'good' || selected === 'share')">问答</p>
-            <router-link class="title" :to='{name:"Article", params:{id:item.id}}'>
-              {{item.title}}
-            </router-link>
+    <div class="portal-content">
+      <div class="header">
+        <ui-nav :selected.sync="selected" class="header-nav" @update:selected="onSelected">
+          <ui-nav-item name="all">全部</ui-nav-item>
+          <ui-nav-item name="good">精华</ui-nav-item>
+          <ui-nav-item name="share">分享</ui-nav-item>
+          <ui-nav-item name="ask">问答</ui-nav-item>
+          <ui-nav-item name="job">招聘</ui-nav-item>
+          <ui-nav-item name="dev">测试</ui-nav-item>
+        </ui-nav>
+      </div>
+      <div class="content">
+        <template v-for='(item, index) in dataList'>
+          <div class="item" :key="index">
+            <div class="item-left">
+              <img class="avatar" :src='item.author.avatar_url' :title='item.loginname'>
+              <p class="count">
+                <span class="reply-count">{{item.reply_count}}</span>/<span
+                class="visit-count">{{item.visit_count}}</span>
+              </p>
+              <p class="top" v-if="item.top === true && (selected === 'all' || selected === 'good' || selected === 'share')">置顶</p>
+              <p class="tab" v-else-if="item.tab==='share' && (selected === 'all' || selected === 'good' || selected === 'share')">分享</p>
+              <p class="tab" v-else-if="item.tab==='ask' && (selected === 'all' || selected === 'good' || selected === 'share')">问答</p>
+              <router-link class="title" :to='{name:"Article", params:{id:item.id}}'>
+                {{item.title}}
+              </router-link>
+            </div>
+            <div class="item-right">
+              发布时间：{{regTime(item.create_at)}}
+            </div>
           </div>
-          <div class="item-right">
-            发布时间：{{regTime(item.create_at)}}
-          </div>
-        </div>
-      </template>
+        </template>
+      </div>
     </div>
+    <PSider />
   </div>
 </template>
 
 <script>
+  import PSider from '../components/p-sider/p-sider';
   export default {
     name: "portal",
     data () {
@@ -46,6 +50,9 @@
         limit: 20,
         loading: true
       };
+    },
+    components:{
+      PSider
     },
     computed: {
       regTime () {
@@ -88,8 +95,13 @@
 
 <style scoped lang="scss">
   .portal-wrapper {
+    display: flex;
     min-height: 100vh;
-    width: 78%;
+    width: 100%;
+    justify-content: space-between;
+    .portal-content{
+      flex: .98;
+    }
     .header-nav {
       display: flex;
       padding: 0 10px;

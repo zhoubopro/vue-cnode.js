@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Portal from '../view/portal';
 import Article from '../view/article';
-import Sider from '../view/sider';
 import User from '../view/user';
 import About from '../view/about';
 
@@ -13,20 +12,20 @@ export default new Router({
     {
       path: '/',
       name: 'Portal',
-      // component: Portal,
-      components: {
-        main: Portal,
-        sider: Sider
-      },
+      component: Portal,
+      // components: {
+      //   main: Portal,
+      //   sider: Sider
+      // },
     },
     {
       path: '/topic/:id',
       name: 'Article',
-      // component: Article,
-      components: {
-        main: Article,
-        sider: Sider,
-      },
+      component: Article,
+      // components: {
+      //   main: Article,
+      //   sider: Sider,
+      // },
     },
     {
       path: '/user/:name',

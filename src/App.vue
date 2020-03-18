@@ -2,8 +2,7 @@
   <div id="app">
     <p-header />
     <div class="router">
-      <router-view name='main'></router-view>
-      <router-view name='sider'></router-view>
+      <router-view></router-view>
     </div>
     <div class="back-top" @click="goTop" v-show="top">回到顶部</div>
   </div>
@@ -61,10 +60,8 @@
     color: #08c;
   }
   .router {
-    display: flex;
-    justify-content: space-between;
     width: 90%;
-    margin: 20px auto;
+    margin: 20px auto 0;
   }
   .back-top {
     color: gray;
