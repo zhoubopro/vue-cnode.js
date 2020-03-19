@@ -12,7 +12,7 @@
         作者
       </div>
       <div class="content">
-        <router-link :to='{name: "UserRoute",params:{name: userInfo.loginname}}'>
+        <router-link :to='{name: "User",params:{name: userInfo.loginname}}'>
           <img :src='userInfo.avatar_url'>
           <span>{{userInfo.loginname}}</span>
         </router-link>

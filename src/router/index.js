@@ -30,13 +30,7 @@ export default new Router({
     {
       path: '/user/:name',
       name: 'User',
-      components: {
-        main: User
-      },
-    },
-    {
-      path: '/user/:name',
-      redirect: '/user:name',
+      component: User
     },
     {
       path: '/about',

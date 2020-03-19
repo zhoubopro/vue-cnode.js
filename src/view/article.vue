@@ -77,14 +77,6 @@
       PSider
     },
     computed: {
-      createdTime () {
-        return String(this.article.create_at).match(/.{10}/)[0];
-      },
-      replyTime () {
-        return function (time) {
-          return String(time).match(/.{10}/)[0];
-        }
-      }
     },
     mounted () {
       this.getTopicApi();
